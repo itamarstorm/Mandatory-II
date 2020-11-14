@@ -1,9 +1,18 @@
 const express = require("express")
 const app = express()
-require("dotenv").config()
 const session = require('express-session');
+const fs = require('fs')
 
+
+require("dotenv").config()
 const port  = process.env.PORT || 8080;
+
+const loggedInHeader = fs.readFileSync(__dirname +"/public/header/loggedinHeader.html").toString()
+const header = fs.readFileSync(__dirname + "/public/header/header.html").toString()
+const index = fs.readFileSync(__dirname + "/public/index/index.html").toString()
+
+const notLoggedIn = header + index
+const loggedIn = loggedInHeader + index
 
 app.use(express.static("public"))
 app.use(express.json())
@@ -18,10 +27,16 @@ app.use(session({
 
 
 const loginRoutes = require("./rotues/loginRoutes")
+const sessionsRoutes = require("./rotues/sessionRoutes")
 app.use(loginRoutes)
+app.use(sessionsRoutes)
 
 app.get("/", (req, res) => {
-    return res.sendFile( __dirname + "/public/index" )
+    if(req.session.loggedin){
+        return res.send(loggedIn)
+    }else{
+        return res.send(notLoggedIn)
+    }
 })
 
 app.get("/secure", (req, res) => {

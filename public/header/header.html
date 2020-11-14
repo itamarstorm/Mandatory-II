@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../header/header.css">
+    <link rel="stylesheet" href="../index/index.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<ul>
+    <li><a href="/">Home</a></li>
+    <li style="float: right"><a href="#" onclick="openSignUpForm()">Signup</a></li>
+    <li style="float: right"><a href="#" onclick="openLoginForm()">Login</a></li>
+</ul>
+
+<div class="form-popup" id="loginform">
+    <form action="/login" class="form-container" method="post">
+        <h1>Login</h1>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter username" name="username" required>
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn cancel" onclick="closeLoginForm()">Close</button>
+    </form>
+</div>
+
+<div class="form-popup" id="signupform">
+    <form action="/signup" class="form-container" method="post">
+        <h1>Sign up</h1>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter username" name="username" required>
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+        <button type="submit" class="btn">Login</button>
+        <button type="submit" class="btn cancel" onclick=" closeSignUpForm()">Close</button>
+    </form>
+</div>
+
+<script src="header/header.js"></script>
