@@ -41,10 +41,10 @@ app.get("/", (req, res) => {
 
 app.get("/secure", (req, res) => {
     console.log(req.session.loggedin)
-    if(req.session.loggedin){
-        res.send("logged in")
-    }else{
-        res.send("not logged in")
+    if(req.session.role === "admin") {
+        res.sendFile(__dirname + "/public/secure/secure.html")
+    } else {
+        res.status(403).send("fejl")
     }
 
 })

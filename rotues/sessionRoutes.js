@@ -1,10 +1,7 @@
 const router = require('express').Router()
 
-
-router.get("/getsessionname", (req, res) => {
-    username = req.session.username
-    return res.send({data: username})
-
+router.get("/getsession", (req, res) => {
+    return res.send({username: req.session.username, role: req.session.role})
 })
 
 module.exports = router

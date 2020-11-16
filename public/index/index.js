@@ -1,15 +1,13 @@
-function getSessionName() {
-    fetch("/getsessionname")
+function getSession() {
+    fetch("/getsession")
         .then(result => result.json())
         .then(data => {
-            if(data.data === undefined){
+            if(data.username === undefined){
                 $("#greeting").append("Hello stranger")
             }else{
-                const username = data.data
-                $("#greeting").append("Hello " + data.data)
+                $("#greeting").append("Hello " + " " + data.username)
 
             }
         })
 }
-
-getSessionName()
+getSession()

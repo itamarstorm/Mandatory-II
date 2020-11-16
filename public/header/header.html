@@ -10,8 +10,8 @@
 
 <ul>
     <li><a href="/">Home</a></li>
-    <li style="float: right"><a href="#" onclick="openSignUpForm()">Signup</a></li>
-    <li style="float: right"><a href="#" onclick="openLoginForm()">Login</a></li>
+    <li style="float: right"><a href="#" onclick="acctivateForm('signupform')">Signup</a></li>
+    <li style="float: right"><a href="#" onclick="acctivateForm('loginform')">Login</a></li>
 </ul>
 
 <div class="form-popup" id="loginform">
@@ -22,7 +22,7 @@
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required>
         <button type="submit" class="btn">Login</button>
-        <button type="submit" class="btn cancel" onclick="closeLoginForm()">Close</button>
+        <button type="submit" class="btn cancel" onclick="acctivateForm('loginform')">Close</button>
     </form>
 </div>
 
@@ -33,8 +33,8 @@
         <input type="text" placeholder="Enter username" name="username" required>
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required>
-        <button type="submit" class="btn">Login</button>
-        <button type="submit" class="btn cancel" onclick=" closeSignUpForm()">Close</button>
+        <button type="submit" class="btn">Sign up</button>
+        <button type="submit" class="btn cancel"onclick="acctivateForm('signupform')">Close</button>
     </form>
 </div>
 

@@ -1,15 +1,8 @@
-function openLoginForm() {
-    document.getElementById("loginform").style.display = "block";
+function acctivateForm(form){
+    if ($("#" + form).css("display") === "block") {
+        $("#" + form).css("display", "none")
+    } else {
+        $("#" + form).css("display", "block")
+    }
 }
 
-function closeLoginForm() {
-    document.getElementById("loginform").style.display = "none";
-}
-
-function openSignUpForm(){
-    $("#signupform").css("display", "block")
-}
-
-function closeSignUpForm(){
-    $("#signupform").css("display", "none")
-}
