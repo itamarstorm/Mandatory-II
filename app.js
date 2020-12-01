@@ -1,23 +1,13 @@
 const express = require("express")
 const app = express()
-const session = require('express-session');
-const fs = require('fs')
 
-
-require("dotenv").config()
 const port  = process.env.PORT || 8080;
 
-const loggedInHeader = fs.readFileSync(__dirname +"/public/header/loggedinHeader.html").toString()
-const header = fs.readFileSync(__dirname + "/public/header/header.html").toString()
-const index = fs.readFileSync(__dirname + "/public/index/index.html").toString()
+const fs = require('fs')
 
-const notLoggedIn = header + index
-const loggedIn = loggedInHeader + index
+require("dotenv").config()
 
-app.use(express.static("public"))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-
+const session = require('express-session');
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -25,6 +15,16 @@ app.use(session({
     cookie: { secure: false }
 }))
 
+const loggedInHeader = fs.readFileSync(__dirname +"/public/header/loggedinHeader.html").toString()
+const header = fs.readFileSync(__dirname + "/public/header/header.html").toString()
+const footer = fs.readFileSync(__dirname + "/public/footer/footer.html").toString()
+const index = fs.readFileSync(__dirname + "/public/index/index.html").toString()
+const authentication = fs.readFileSync(__dirname + "/public/secure/authentication.html")
+const authorization = fs.readFileSync(__dirname + "/public/secure/authorization.html")
+
+app.use(express.static("public"))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
 const loginRoutes = require("./rotues/loginRoutes")
 const sessionsRoutes = require("./rotues/sessionRoutes")
@@ -33,18 +33,26 @@ app.use(sessionsRoutes)
 
 app.get("/", (req, res) => {
     if(req.session.loggedin){
-        return res.send(loggedIn)
+        return res.send(loggedInHeader + index + footer)
     }else{
-        return res.send(notLoggedIn)
+        return res.send(header + index + footer)
     }
 })
 
-app.get("/secure", (req, res) => {
+app.get("/authorization", (req, res) => {
     console.log(req.session.loggedin)
     if(req.session.role === "admin") {
-        res.sendFile(__dirname + "/public/secure/secure.html")
+        res.send( loggedInHeader + authorization + footer)
     } else {
-        res.status(403).send("fejl")
+        res.status(403).sendFile(__dirname + "/public/unauthorized/unauthorized.html")
+    }
+})
+
+app.get("/authentication", (req, res) => {
+    if(req.session.role === "user" || req.session.role === "admin") {
+        res.send( loggedInHeader + authentication + footer)
+    } else {
+        res.status(401).sendFile(__dirname + "/public/unauthorized/unauthorized.html")
     }
 
 })

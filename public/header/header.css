@@ -57,7 +57,7 @@ li a:hover {
 }
 
 /* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
+.form-container input[type=text], .form-container input[type=password], .form-container input[type=email] {
     width: 90%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -66,7 +66,7 @@ li a:hover {
 }
 
 /* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+.form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container input[type=email]:focus {
     background-color: #ddd;
     outline: none;
 }
