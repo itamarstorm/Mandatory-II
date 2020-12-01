@@ -54,7 +54,6 @@ app.get("/authentication", (req, res) => {
     } else {
         res.status(401).sendFile(__dirname + "/public/unauthorized/unauthorized.html")
     }
-
 })
 
 app.listen(port, (error) => {

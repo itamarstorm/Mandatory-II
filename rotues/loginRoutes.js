@@ -22,7 +22,7 @@ const usernameinuse = fs.readFileSync(__dirname + "/../public/unauthorized/usern
 router.post("/user/login", (req, res) => {
     db.query('SELECT * FROM accounts WHERE username = ?', [req.body.username],   async(error, result) => {
         if(result.length === 0) {
-            return res.status(404).send(wrongcredentials)
+            return res.status(404).send("/../public/unauthorized/wrongcredentials.html")
         }
         try {
             if(await bcrypt.compare(req.body.password, result[0].password)) {
@@ -31,7 +31,7 @@ router.post("/user/login", (req, res) => {
                 req.session.username = req.body.username
                 return res.redirect("/")
             } else {
-                res.status(401).send(wrongcredentials)
+                res.status(401).send("/../public/unauthorized/wrongcredentials.html")
             }
         } catch {
             res.status(500)
@@ -50,10 +50,11 @@ router.post("/user/signup", async (req, res) => {
         const account = {username: req.body.username, role: "user", password: hashedPassword, email: req.body.email}
         db.query('INSERT INTO accounts SET ?', account, (error, result) => {
             if (error && error.code === "ER_DUP_ENTRY") {
-                return res.status(400).send(usernameinuse)
+                return res.status(400).sendFile("/../public/unauthorized/usernameinuse.html")
             }else{
                 mail.sendMail(account.email, "Comfirmation", "A new user has been created with the email")
                 req.session.loggedin = true
+                req.session.role = account.role
                 req.session.username = account.username
                 return res.redirect("/")
             }
