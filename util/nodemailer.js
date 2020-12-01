@@ -5,7 +5,7 @@ const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: process.env.email,
-        pass: process.env.emailpassword
+        pass: process.env.emailPassword
     }
 })
 
@@ -16,7 +16,6 @@ function sendMail(mail, subject, message) {
         subject: subject,
         text: message
     }
-
     transporter.sendMail(mailOptions, (error, info) => {
         if(error){
             console.log(error)
